@@ -5,12 +5,16 @@
       <artifact pattern="${ivy.conf.dir}/repository/[organization]/[artifact]/[revision]/[artifact]-[revision].[ext]" />
     </filesystem>
     <ibiblio name="central" m2compatible="true" root="https://repo1.maven.org/maven2/"/>
-    <url name="github">
+    <url name="checkstyle-github">
       <artifact pattern="https://github.com/[organization]/[artifact]/releases/download/[artifact]-[rev]/[artifact]-[rev].[ext]"/>
     </url>
   </resolvers>
   <modules>
     <module organisation="suse" name="*" resolver="suse"/>
-    <module organisation="checkstyle" name="*" resolver="github"/>
   </modules>
+  <triggers>
+    <!-- Unzip and install SpotBugs -->
+    <ant-build event="post-download-artifact" filter="artifact=spotbugs AND type=zip AND status=successful"
+               antfile="${ivy.settings.dir}/unzip-artifacts.xml" target="spotbugs" prefix="dep"/>
+  </triggers>
 </ivysettings>

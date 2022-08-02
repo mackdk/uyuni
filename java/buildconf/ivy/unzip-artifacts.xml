@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project name="unzip-artifact" default="default" basedir=".">
+    <target name="spotbugs">
+        <delete dir="../spotbugs" />
+        <!-- Unzip spotbugs distribution -->
+        <unzip src="${dep.file}" dest="../spotbugs">
+            <globmapper from="${dep.artifact}-${dep.revision}/*" to="*"/>
+        </unzip>
+    </target>
+
+    <target name="default">
+        <echo message="Please specify the artifact to unzip." />
+    </target>
+</project>

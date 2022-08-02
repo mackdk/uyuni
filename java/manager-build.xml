@@ -37,6 +37,9 @@
   <property name="ssh.socket.option" value="-o ControlPath=${ssh.socket.file}"/>
   <property name="ssh.command.args" value="${ssh.socket.option} -p ${deploy.port} ${deploy.user}@${deploy.host}"/>
   <property name="rsync.arg.rsh" value="ssh ${ssh.socket.option} -p ${deploy.port}"/>
+  <property name="spotbugs.home" value="buildconf/spotbugs" />
+  <property name="spotbugs.destfile.xml" value="${build.dir}/spotbugs-report.xml"/>
+  <property name="spotbugs.destfile.html" value="${build.dir}/spotbugs-report.html"/>
 
   <!-- Taskdefs -->
   <taskdef name="ivy-retrieve" classname="org.apache.ivy.ant.IvyRetrieve"/>
@@ -48,6 +51,9 @@
   <path id="managertestjars">
     <fileset dir="${lib.dir}" includes="**/*.jar" />
     <fileset file="${build.dir}/rhn.jar" />
+  </path>
+  <path id="spotbugsjars">
+    <fileset dir="${spotbugs.home}/lib" includes="**/*.jar" />
   </path>
 
   <!-- Tasks -->
@@ -64,7 +70,7 @@
     </exec>
   </target>
 
-  <target name="ivy" depends="obs-to-maven" description="Retrieves dependencies through ivy">
+  <target name="ivy" description="Retrieves dependencies through ivy">
     <ivy-retrieve sync="true" type="jar,bundle"/>
   </target>
 
@@ -386,6 +392,20 @@
       <csv destfile="${tests.coverage.results.dir}/report.csv" />
       <xml destfile="${tests.coverage.results.dir}/report.xml" />
     </report>
+  </target>
+
+  <target name="spotbugs" depends="jar" description="Perform SpotBugs static analysis">
+    <taskdef resource="edu/umd/cs/findbugs/anttask/tasks.properties" classpathref="spotbugsjars" />
+    <spotbugs home="${spotbugs.home}" output="xml:withMessages" outputFile="${spotbugs.destfile.xml}">
+      <sourcePath path="code/src" />
+      <sourcePath path="code/scripts/src" />
+      <sourcePath path="code/internal/src" />
+      <auxclasspath refid="libjars" />
+      <class location="${build.dir}/rhn.jar" />
+    </spotbugs>
+    <bugsToText input="${spotbugs.destfile.xml}" format="html" outputfile="${spotbugs.destfile.html}">
+      <classpath refid="spotbugsjars" />
+    </bugsToText>
   </target>
 
   <target name="apidoc-singlepage" description="Generate the api for jsps">

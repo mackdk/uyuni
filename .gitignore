@@ -8,6 +8,7 @@
 *.Ds_Store
 java/build
 java/buildconf/ivy/repository/
+java/buildconf/spotbugs
 java/lib
 java/*.log
 java/*.log.*
