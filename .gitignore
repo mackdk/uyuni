@@ -49,6 +49,7 @@ search-server/spacewalk-search/buildconf/repository/
 .project
 .pydevproject
 .zanata-cache
+.scannerwork/
 web/html/css
 web/html/img
 web/html/pub
