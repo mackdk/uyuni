@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.internal.doclet;
 
-import com.suse.manager.api.ReadOnly;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -241,11 +239,6 @@ public class ApiCall implements Comparable<ApiCall> {
     public void setIgnored() {
         this.ignored = true;
     }
-
-    public boolean isReadOnly() {
-        return this.getMethod().getAnnotation(ReadOnly.class) != null;
-    }
-
 
     @Override
     public boolean equals(Object oIn) {
