@@ -9,7 +9,7 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  */
 
-package com.suse.manager.model.hub.test;
+package com.suse.manager.hub.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,16 +28,16 @@ import com.redhat.rhn.domain.iss.IssRole;
 import com.redhat.rhn.manager.setup.MirrorCredentialsManager;
 import com.redhat.rhn.testing.JMockBaseTestCaseWithUser;
 
-import com.suse.manager.iss.IssClientFactory;
-import com.suse.manager.iss.IssExternalClient;
-import com.suse.manager.iss.IssInternalClient;
-import com.suse.manager.iss.SCCCredentialsJson;
+import com.suse.manager.hub.HubManager;
+import com.suse.manager.hub.IssClientFactory;
+import com.suse.manager.hub.IssExternalClient;
+import com.suse.manager.hub.IssInternalClient;
 import com.suse.manager.model.hub.HubFactory;
-import com.suse.manager.model.hub.HubManager;
 import com.suse.manager.model.hub.IssAccessToken;
 import com.suse.manager.model.hub.IssHub;
 import com.suse.manager.model.hub.IssPeripheral;
 import com.suse.manager.model.hub.IssServer;
+import com.suse.manager.model.hub.SCCCredentialsJson;
 import com.suse.manager.model.hub.TokenType;
 import com.suse.manager.webui.utils.token.Token;
 import com.suse.manager.webui.utils.token.TokenBuildingException;
