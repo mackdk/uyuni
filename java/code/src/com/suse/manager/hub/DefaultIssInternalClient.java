@@ -12,8 +12,8 @@
 package com.suse.manager.hub;
 
 import com.redhat.rhn.common.util.http.HttpClientAdapter;
-import com.redhat.rhn.domain.iss.IssRole;
 
+import com.suse.manager.model.hub.IssRole;
 import com.suse.manager.model.hub.RegisterJson;
 import com.suse.manager.model.hub.SCCCredentialsJson;
 import com.suse.manager.webui.controllers.ECMAScriptDateAdapter;

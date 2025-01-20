@@ -16,7 +16,6 @@ import static org.jmock.AbstractExpectations.throwException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.redhat.rhn.domain.iss.IssRole;
 import com.redhat.rhn.frontend.xmlrpc.InvalidTokenException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.TokenCreationException;
@@ -24,6 +23,7 @@ import com.redhat.rhn.frontend.xmlrpc.TokenExchangeFailedException;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 
 import com.suse.manager.hub.HubManager;
+import com.suse.manager.model.hub.IssRole;
 import com.suse.manager.webui.utils.token.TokenBuildingException;
 import com.suse.manager.webui.utils.token.TokenException;
 import com.suse.manager.webui.utils.token.TokenParsingException;

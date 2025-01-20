@@ -13,13 +13,13 @@ package com.suse.manager.hub;
 
 import static com.suse.manager.webui.utils.SparkApplicationHelper.json;
 
-import com.redhat.rhn.domain.iss.IssRole;
 import com.redhat.rhn.frontend.security.AuthenticationServiceFactory;
 
 import com.suse.manager.model.hub.HubFactory;
 import com.suse.manager.model.hub.IssAccessToken;
 import com.suse.manager.model.hub.IssHub;
 import com.suse.manager.model.hub.IssPeripheral;
+import com.suse.manager.model.hub.IssRole;
 import com.suse.manager.webui.utils.gson.ResultJson;
 import com.suse.manager.webui.utils.token.Token;
 import com.suse.manager.webui.utils.token.TokenParsingException;

@@ -12,8 +12,8 @@
 package com.suse.manager.hub;
 
 import com.redhat.rhn.domain.credentials.SCCCredentials;
-import com.redhat.rhn.domain.iss.IssRole;
 
+import com.suse.manager.model.hub.IssRole;
 import com.suse.manager.model.hub.SCCCredentialsJson;
 
 import java.io.IOException;

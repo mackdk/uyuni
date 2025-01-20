@@ -11,8 +11,6 @@
 
 package com.suse.manager.model.hub;
 
-import com.redhat.rhn.domain.iss.IssRole;
-
 import java.util.Objects;
 
 public class RegisterJson {
