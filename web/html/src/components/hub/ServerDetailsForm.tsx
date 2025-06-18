@@ -185,8 +185,17 @@ export class ServerDetailsForm extends React.Component<Props, State> {
 
     const peripheralData = this.state.model as PeripheralDetailData;
 
+    if (peripheralData.nSyncedChannels === 0) {
+      return t("No channels syncronized.");
+    }
+
     if (peripheralData.nSyncedChannels === 1) {
       return t("One syncronized channel");
+    }
+
+    // Only vendor channels are syncronized
+    if (peripheralData.nSyncedOrgs === 0) {
+      return t("{nSyncedChannels} syncronized channels", peripheralData);
     }
 
     if (peripheralData.nSyncedOrgs === 1) {
