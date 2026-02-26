@@ -951,7 +951,7 @@ public class HubManager {
     }
 
     private SCCCredentials saveCredentials(IssHub hub, String username, String password) {
-        SCCCredentials currentCredentials = hub.getMirrorCredentials();
+        var currentCredentials = hub.getMirrorCredentials();
         // If credentials already exist linked to this hub, just updated them with the new values
         if (currentCredentials != null) {
 
@@ -980,9 +980,7 @@ public class HubManager {
     }
 
     private Token createAndSaveToken(String fqdn) throws TokenBuildingException, TokenParsingException {
-        Token token = new IssTokenBuilder(fqdn)
-            .usingServerSecret()
-            .build();
+        var token = new IssTokenBuilder(fqdn).usingServerSecret().build();
 
         hubFactory.saveToken(fqdn, token.getSerializedForm(), TokenType.ISSUED, token.getExpirationTime());
         return token;

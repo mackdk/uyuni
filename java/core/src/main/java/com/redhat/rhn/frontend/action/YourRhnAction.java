@@ -44,7 +44,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class YourRhnAction extends RhnAction {
 
-    public static final String ANY_LISTS_SELECTED = "anyListsSelected";
+    private static final String ANY_LISTS_SELECTED = "anyListsSelected";
     private static final CloudPaygManager CLOUD_PAYG_MANAGER = GlobalInstanceHolder.PAYG_MANAGER;
 
     /** {@inheritDoc} */
