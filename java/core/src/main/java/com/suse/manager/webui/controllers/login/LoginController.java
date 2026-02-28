@@ -31,17 +31,18 @@ import com.suse.manager.webui.services.OidcAuthHandler;
 import com.suse.manager.webui.utils.LoginHelper;
 import com.suse.manager.webui.utils.SparkApplicationHelper;
 import com.suse.utils.Json;
+import com.suse.utils.sso.SingleSignOnException;
+import com.suse.utils.sso.SingleSignOnProcessor;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.onelogin.saml2.Auth;
-import com.onelogin.saml2.exception.SettingsException;
 import com.onelogin.saml2.settings.Saml2Settings;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,11 +106,11 @@ public class LoginController {
         if (ConfigDefaults.get().isSingleSignOnEnabled() && ssoSettings.isPresent()) {
             /* Single Sign-On is enabled */
             try {
-                Auth auth = new Auth(ssoSettings.get(), request.raw(), response.raw());
-                auth.login(LoginHelper.DEFAULT_URL_BOUNCE);
+                var ssoProcessor = new SingleSignOnProcessor(ssoSettings.get());
+                ssoProcessor.login(LoginHelper.DEFAULT_URL_BOUNCE, request.raw(), response.raw());
             }
-            catch (SettingsException | IOException e) {
-                LOGGER.error(e.getMessage());
+            catch (SingleSignOnException | IOException | URISyntaxException e) {
+                LOGGER.error("Unable to perform SSO Login", e);
             }
             /*
                 The return at the end of the method is dummy: the login page will not be displayed as we will be

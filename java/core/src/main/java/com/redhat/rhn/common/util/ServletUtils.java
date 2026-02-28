@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 SUSE LLC
  * Copyright (c) 2009--2014 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
@@ -15,8 +16,12 @@
 
 package com.redhat.rhn.common.util;
 
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.utils.URIBuilder;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -29,6 +34,7 @@ import java.util.stream.Collectors;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * A simple class that assists with Servlet-related activities
@@ -170,5 +176,62 @@ public class ServletUtils {
         }
 
         return buffer.charAt(buffer.length() - 1) == c;
+    }
+
+    /**
+     * Reconstructs the request URL without the query string.
+     * This is used for SAML signature validation where the URL must match
+     * the public-facing address exactly, regardless of internal proxy routing.
+     * @param request the {@link HttpServletRequest servlet request}
+     * @return the public request URL without the query string
+     */
+    public static String getAbsoluteRequestUrl(HttpServletRequest request) {
+        StringBuilder url = new StringBuilder();
+
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int port = request.getServerPort();
+
+        url.append(scheme)
+                .append("://")
+                .append(serverName);
+
+        if (port != 80 && port != 443 && port != 0) {
+            url.append(":").append(port);
+        }
+
+        String requestUri = request.getRequestURI();
+        if (requestUri != null && !requestUri.isEmpty()) {
+            url.append(requestUri);
+        }
+
+        return url.toString();
+    }
+
+    /**
+     * Sends an HTTP redirect to the given location, optionally appending query parameters.
+     * Empty parameter values are encoded as parameter names without an equals sign.
+     *
+     * @param response the {@link HttpServletResponse} used to send the redirect
+     * @param location the target redirect location
+     * @param parameters the query parameters to append to the redirect URL
+     * @return the final redirect target sent to the client
+     * @throws IOException if sending the redirect fails
+     * @throws URISyntaxException if the location or resulting URL is not a valid URI
+     */
+    public static String sendRedirect(HttpServletResponse response, String location, Map<String, String> parameters)
+            throws IOException, URISyntaxException {
+        if (MapUtils.isEmpty(parameters)) {
+            response.sendRedirect(location);
+            return location;
+        }
+
+        URIBuilder uriBuilder = new URIBuilder(location);
+        // Ensure parameters with an empty value are translated to ?param and not to ?param=
+        parameters.forEach((name, value) -> uriBuilder.addParameter(name, StringUtils.defaultIfEmpty(value, null)));
+
+        String target = uriBuilder.build().toString();
+        response.sendRedirect(target);
+        return target;
     }
 }
