@@ -148,7 +148,8 @@ BuildRequires:  struts >= 1.2.9
 BuildRequires:  tomcat11
 BuildRequires:  tomcat11-lib
 BuildRequires:  uyuni-base-server
-BuildRequires:  woodstox
+BuildRequires:  woodstox-core
+BuildRequires:  stax2-api
 BuildRequires:  xmlsec
 BuildRequires:  (google-gson >= 2.2.4 with google-gson < 2.10.0)
 BuildRequires:  mvn(org.apache.velocity:velocity-engine-core) >= 2.2

@@ -10,6 +10,9 @@ repositories:
     repository: openSUSE_Leap_15.6
   Leap_sle:
     url: https://download.opensuse.org/update/leap/15.6/sle
+  Uyuni_mackdk:
+    project: home:thomas.florio:uyuni
+    repository: openSUSE_Leap_15.6
 artifacts:
   - artifact: antlr4-runtime
     package: antlr4-java
@@ -134,7 +137,7 @@ artifacts:
     repository: Uyuni
   - artifact: java-saml-core
     package: java-saml
-    repository: Uyuni_Other
+    repository: Uyuni_mackdk
   - artifact: jboss-logging
     repository: Uyuni
   - artifact: jctools-core
@@ -257,15 +260,13 @@ artifacts:
     package: pgjdbc-ng
     repository: Uyuni_Other
   - artifact: stax2-api
-    package: woodstox
-    repository: Uyuni_Other
+    repository: Uyuni_mackdk
   - artifact: struts
     repository: Uyuni
-  - artifact: woodstox-core-asl
-    package: woodstox
-    repository: Uyuni_Other
+  - artifact: woodstox-core
+    repository: Uyuni_mackdk
   - artifact: xmlsec
-    repository: Uyuni_Other
+    repository: Uyuni_mackdk
   - artifact: velocity-engine-core
     repository: Leap_sle
 
